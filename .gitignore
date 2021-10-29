@@ -1,0 +1,4 @@
+# From https://github.com/github/gitignore/blob/master/Gradle.gitignore
+.gradle
+.idea
+/build/

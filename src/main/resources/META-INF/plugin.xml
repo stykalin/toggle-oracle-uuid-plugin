@@ -1,0 +1,41 @@
+<idea-plugin>
+    <id>com.github.stykalin.ToggleOracleUUID</id>
+    <name>Toggle Oracle UUID</name>
+    <vendor email="a.stikalin@gmail.com" url="https://github.com/stykalin">Stykalin</vendor>
+
+    <description><![CDATA[
+    Toggling UUID-format string to DB Oracle UUID-format and vice versa under caret.
+    <br/>
+    Also works in <a href="https://www.jetbrains.com/datagrip/">DataGrip</a>.
+    <br/>
+    Default shortcut: <em><strong>alt + L</strong></em>
+    <br/>
+    <br/>
+    <p><img src="https://github.com/stykalin/stykalin.github.io/raw/master/images/toggle_oracle_demo.gif" alt="demo" width="552" height="194"></p>
+    <br/>
+    <em>Inspired by <a href="https://plugins.jetbrains.com/plugin/7160-camelcase">CamelCase plugin</a></em>
+    ]]></description>
+
+    <change-notes><![CDATA[
+      <p>Version 0.0.1:
+      <ul>
+        <li>Added initial toggle action</li>
+      </ul>
+      </p>
+      ]]>
+    </change-notes>
+
+    <idea-version since-build="202"/>
+
+    <depends>com.intellij.modules.platform</depends>
+
+    <actions>
+        <action id="com.github.stykalin.ToggleOracleUuidAction"
+                class="com.github.stykalin.ToggleOracleUuidAction"
+                text="Convert Oracle UUID"
+                description="Convert Oracle UUID to UUID and vice versa.">
+            <add-to-group group-id="EditorPopupMenu" anchor="first"/>
+            <keyboard-shortcut first-keystroke="alt L" keymap="$default"/>
+        </action>
+    </actions>
+</idea-plugin>
