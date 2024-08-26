@@ -1,5 +1,6 @@
 package com.github.stykalin
 
+import com.intellij.openapi.actionSystem.ActionUpdateThread
 import com.intellij.openapi.actionSystem.AnAction
 import com.intellij.openapi.actionSystem.AnActionEvent
 import com.intellij.openapi.actionSystem.CommonDataKeys
@@ -14,13 +15,15 @@ import java.util.regex.Pattern
 
 class ToggleOracleUuidAction : AnAction() {
 
+    override fun getActionUpdateThread(): ActionUpdateThread  = ActionUpdateThread.BGT
+
     override fun actionPerformed(e: AnActionEvent) {
         val editor: Editor = e.getRequiredData(CommonDataKeys.EDITOR)
         val project: Project = e.getRequiredData(CommonDataKeys.PROJECT)
         val document: Document = editor.document
 
         var selectedText = editor.selectionModel.selectedText
-        if (selectedText == null || selectedText.isEmpty()) {
+        if (selectedText.isNullOrEmpty()) {
             editor.selectionModel.selectWordAtCaret(true)
             var moveLeft = true
             var moveRight = true

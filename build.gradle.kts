@@ -1,10 +1,10 @@
 plugins {
-    kotlin("jvm") version "1.5.31"
-    id("org.jetbrains.intellij") version "1.2.0"
+    id("org.jetbrains.kotlin.jvm") version "1.9.21"
+    id("org.jetbrains.intellij") version "1.17.3"
 }
 
 group = "com.github.stykalin"
-version = "0.0.1"
+version = "0.0.3"
 
 repositories {
     mavenCentral()
@@ -15,7 +15,9 @@ dependencies {
 }
 
 intellij {
-    version.set("IC-2021.2")
+    version.set("2023.1")
+    type.set("IC")
+    updateSinceUntilBuild.set(false)
 }
 
 tasks {
@@ -27,5 +29,11 @@ tasks {
 
     publishPlugin {
         token.set(System.getenv("PUBLISH_TOKEN"))
+    }
+
+    test{
+        testLogging{
+            events("passed")
+        }
     }
 }

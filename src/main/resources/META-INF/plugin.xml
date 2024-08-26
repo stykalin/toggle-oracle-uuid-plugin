@@ -10,13 +10,20 @@
     <br/>
     Default shortcut: <em><strong>alt + L</strong></em>
     <br/>
-    <br/>
-    <p><img src="https://github.com/stykalin/stykalin.github.io/raw/master/images/toggle_oracle_demo.gif" alt="demo" width="552" height="194"></p>
-    <br/>
     <em>Inspired by <a href="https://plugins.jetbrains.com/plugin/7160-camelcase">CamelCase plugin</a></em>
     ]]></description>
 
     <change-notes><![CDATA[
+      <p>Version 0.0.3:
+      <ul>
+        <li>Up since-build version to 2023.1</li>
+      </ul>
+      </p>
+      <p>Version 0.0.2:
+      <ul>
+        <li>Removed until-build version</li>
+      </ul>
+      </p>
       <p>Version 0.0.1:
       <ul>
         <li>Added initial toggle action</li>
@@ -25,7 +32,7 @@
       ]]>
     </change-notes>
 
-    <idea-version since-build="202"/>
+    <idea-version since-build="231.8109.175"/>
 
     <depends>com.intellij.modules.platform</depends>
 
