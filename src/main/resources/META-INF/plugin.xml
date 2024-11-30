@@ -8,12 +8,19 @@
     <br/>
     Also works in <a href="https://www.jetbrains.com/datagrip/">DataGrip</a>.
     <br/>
-    Default shortcut: <em><strong>alt + L</strong></em>
+    Default shortcut: <em><strong>Alt + L</strong></em>
+    <br/>
+    You can customize the conversion register from RAW to UUID (lowercase or UPPER-CASE) in the Toggle Oracle Uuid settings.
     <br/>
     <em>Inspired by <a href="https://plugins.jetbrains.com/plugin/7160-camelcase">CamelCase plugin</a></em>
     ]]></description>
 
     <change-notes><![CDATA[
+      <p>Version 0.0.4:
+      <ul>
+        <li>Added settings to upper case UUID converting</li>
+      </ul>
+      </p>
       <p>Version 0.0.3:
       <ul>
         <li>Up since-build version to 2023.1</li>
@@ -32,13 +39,20 @@
       ]]>
     </change-notes>
 
-    <idea-version since-build="231.8109.175"/>
+    <idea-version since-build="231.8109.175" until-build="242.23726.103"/>
 
     <depends>com.intellij.modules.platform</depends>
 
+    <extensions defaultExtensionNs="com.intellij">
+        <applicationConfigurable parentId="tools"
+                                 instance="com.github.stykalin.tou.settings.ToggleOracleUuidAppSettingsConfigurable"
+                                 id="com.github.stykalin.tou.settings.ToggleOracleUuidAppSettingsConfigurable"
+                                 displayName="Toggle Oracle Uuid"/>
+    </extensions>
+
     <actions>
         <action id="com.github.stykalin.ToggleOracleUuidAction"
-                class="com.github.stykalin.ToggleOracleUuidAction"
+                class="com.github.stykalin.tou.action.ToggleOracleUuidAction"
                 text="Convert Oracle UUID"
                 description="Convert Oracle UUID to UUID and vice versa.">
             <add-to-group group-id="EditorPopupMenu" anchor="first"/>

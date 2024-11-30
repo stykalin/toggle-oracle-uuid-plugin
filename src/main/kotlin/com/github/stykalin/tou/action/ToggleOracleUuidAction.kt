@@ -1,5 +1,6 @@
-package com.github.stykalin
+package com.github.stykalin.tou.action
 
+import com.github.stykalin.tou.settings.ToggleOracleUuidAppSettingsState
 import com.intellij.openapi.actionSystem.ActionUpdateThread
 import com.intellij.openapi.actionSystem.AnAction
 import com.intellij.openapi.actionSystem.AnActionEvent
@@ -15,7 +16,7 @@ import java.util.regex.Pattern
 
 class ToggleOracleUuidAction : AnAction() {
 
-    override fun getActionUpdateThread(): ActionUpdateThread  = ActionUpdateThread.BGT
+    override fun getActionUpdateThread(): ActionUpdateThread = ActionUpdateThread.BGT
 
     override fun actionPerformed(e: AnActionEvent) {
         val editor: Editor = e.getRequiredData(CommonDataKeys.EDITOR)
@@ -100,11 +101,11 @@ class ToggleOracleUuidAction : AnAction() {
         charList.add(14, "-")
         charList.add(19, "-")
         charList.add(24, "-")
-        return charList.joinToString("")
+        return charList.joinToString("").let { if (ToggleOracleUuidAppSettingsState.getInstance().useUpperCase) it.uppercase() else it }
     }
 
     companion object {
-        private val UUID_PATTERN = "[a-z0-9]{8}-[a-z0-9]{4}-[a-z0-9]{4}-[a-z0-9]{4}-[a-z0-9]{12}".toRegex()
+        private val UUID_PATTERN = "[a-zA-Z0-9]{8}-[a-zA-Z0-9]{4}-[a-zA-Z0-9]{4}-[a-zA-Z0-9]{4}-[a-zA-Z0-9]{12}".toRegex()
         private val ORACLE_UUID_PATTERN = "[A-Z0-9]{32}".toRegex()
     }
 

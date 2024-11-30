@@ -4,7 +4,7 @@ plugins {
 }
 
 group = "com.github.stykalin"
-version = "0.0.3"
+version = "0.0.4"
 
 repositories {
     mavenCentral()
@@ -31,8 +31,8 @@ tasks {
         token.set(System.getenv("PUBLISH_TOKEN"))
     }
 
-    test{
-        testLogging{
+    test {
+        testLogging {
             events("passed")
         }
     }
