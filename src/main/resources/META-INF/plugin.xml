@@ -3,45 +3,11 @@
     <name>Toggle Oracle UUID</name>
     <vendor email="a.stikalin@gmail.com" url="https://github.com/stykalin">Stykalin</vendor>
 
-    <description><![CDATA[
-    Toggling UUID-format string to DB Oracle UUID-format and vice versa under caret.
-    <br/>
-    Also works in <a href="https://www.jetbrains.com/datagrip/">DataGrip</a>.
-    <br/>
-    Default shortcut: <em><strong>Alt + L</strong></em>
-    <br/>
-    You can customize the conversion register from RAW to UUID (lowercase or UPPER-CASE) in the Toggle Oracle Uuid settings.
-    <br/>
-    <em>Inspired by <a href="https://plugins.jetbrains.com/plugin/7160-camelcase">CamelCase plugin</a></em>
-    ]]></description>
-
-    <change-notes><![CDATA[
-      <p>Version 0.0.4:
-      <ul>
-        <li>Added settings to upper case UUID converting</li>
-      </ul>
-      </p>
-      <p>Version 0.0.3:
-      <ul>
-        <li>Up since-build version to 2023.1</li>
-      </ul>
-      </p>
-      <p>Version 0.0.2:
-      <ul>
-        <li>Removed until-build version</li>
-      </ul>
-      </p>
-      <p>Version 0.0.1:
-      <ul>
-        <li>Added initial toggle action</li>
-      </ul>
-      </p>
-      ]]>
-    </change-notes>
-
-    <idea-version since-build="231.8109.175" until-build="242.23726.103"/>
-
     <depends>com.intellij.modules.platform</depends>
+
+    <extensions defaultExtensionNs="org.jetbrains.kotlin">
+        <supportsKotlinPluginMode supportsK2="true"/>
+    </extensions>
 
     <extensions defaultExtensionNs="com.intellij">
         <applicationConfigurable parentId="tools"

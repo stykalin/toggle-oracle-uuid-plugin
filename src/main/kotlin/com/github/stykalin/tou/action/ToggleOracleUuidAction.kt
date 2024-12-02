@@ -19,8 +19,8 @@ class ToggleOracleUuidAction : AnAction() {
     override fun getActionUpdateThread(): ActionUpdateThread = ActionUpdateThread.BGT
 
     override fun actionPerformed(e: AnActionEvent) {
-        val editor: Editor = e.getRequiredData(CommonDataKeys.EDITOR)
-        val project: Project = e.getRequiredData(CommonDataKeys.PROJECT)
+        val editor: Editor = e.getData(CommonDataKeys.EDITOR) ?: return
+        val project: Project = e.getData(CommonDataKeys.PROJECT) ?: return
         val document: Document = editor.document
 
         var selectedText = editor.selectionModel.selectedText
