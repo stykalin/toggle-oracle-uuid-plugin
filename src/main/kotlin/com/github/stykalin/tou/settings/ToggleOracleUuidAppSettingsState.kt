@@ -14,6 +14,7 @@ import com.intellij.util.xmlb.XmlSerializerUtil
 @Service(Service.Level.APP)
 class ToggleOracleUuidAppSettingsState(
     var useUpperCase: Boolean = false,
+    var useRaw16Mode: Boolean = false,
 ) : PersistentStateComponent<ToggleOracleUuidAppSettingsState> {
     override fun getState(): ToggleOracleUuidAppSettingsState = this
 

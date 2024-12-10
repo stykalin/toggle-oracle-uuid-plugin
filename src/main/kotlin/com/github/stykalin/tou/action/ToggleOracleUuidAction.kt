@@ -16,6 +16,8 @@ import java.util.regex.Pattern
 
 class ToggleOracleUuidAction : AnAction() {
 
+    private val settings: ToggleOracleUuidAppSettingsState = ToggleOracleUuidAppSettingsState.getInstance()
+
     override fun getActionUpdateThread(): ActionUpdateThread = ActionUpdateThread.BGT
 
     override fun actionPerformed(e: AnActionEvent) {
@@ -84,25 +86,61 @@ class ToggleOracleUuidAction : AnAction() {
 
     private fun convertUuid(uuidText: String): String {
         return when {
+            uuidText.matches(UUID_PATTERN) && settings.useRaw16Mode -> convertUuidToRaw16(uuidText)
             uuidText.matches(UUID_PATTERN) -> convertToDb(uuidText)
+            uuidText.matches(ORACLE_UUID_PATTERN) && settings.useRaw16Mode -> convertRaw16ToUuid(uuidText)
             uuidText.matches(ORACLE_UUID_PATTERN) -> convertToUuid(uuidText)
             else -> uuidText
         }
     }
 
-
-    private fun convertToDb(uuidText: String): String {
-        return uuidText.replace("-", "").replace("\"", "").uppercase()
-    }
-
+    /**
+     * Covert from "DD6575AFC6B6A149840E6008432D7D92" to "dd6575af-c6b6-a149-840e-6008432d7d92"
+     */
     private fun convertToUuid(uuidText: String): String {
         val charList = uuidText.replace("-", "").replace("\"", "").lowercase().split("").toMutableList()
         charList.add(9, "-")
         charList.add(14, "-")
         charList.add(19, "-")
         charList.add(24, "-")
-        return charList.joinToString("").let { if (ToggleOracleUuidAppSettingsState.getInstance().useUpperCase) it.uppercase() else it }
+        return charList.joinToString("").let { if (settings.useUpperCase) it.uppercase() else it }
     }
+
+    /**
+     * Covert from "dd6575af-c6b6-a149-840e-6008432d7d92" to "DD6575AFC6B6A149840E6008432D7D92"
+     */
+    private fun convertToDb(uuidText: String): String {
+        return uuidText.replace("-", "").replace("\"", "").uppercase()
+    }
+
+    /**
+     * Covert from "AF7565DDB6C649A1840E6008432D7D92" to "DD6575AF-C6B6-A149-840E-6008432D7D92"
+     */
+    private fun convertRaw16ToUuid(raw16Text: String): String {
+        val result = raw16Text.split("").let {
+            it[7] + it[8] + it[5] + it[6] + it[3] + it[4] + it[1] + it[2] + "-" +            //DD6575AF-
+                    it[11] + it[12] + it[9] + it[10] + "-" +                                 //C6B6-
+                    it[15] + it[16] + it[13] + it[14] + "-" +                                //A149-
+                    it.subList(17, 21).joinToString("") + "-" + //840E-
+                    it.subList(21, 33).joinToString("")         //6008432D7D92
+        }
+        return result.let { if (settings.useUpperCase) it.uppercase() else it.lowercase() }
+    }
+
+    /**
+     * Covert from "DD6575AF-C6B6-A149-840E-6008432D7D92" to "AF7565DDB6C649A1840E6008432D7D92"
+     */
+    fun convertUuidToRaw16(uuidText: String): String {
+        val result = uuidText.replace("-", "").split("").let {
+            it[7] + it[8] + it[5] + it[6] + it[3] + it[4] + it[1] + it[2] +
+                    it[11] + it[12] + it[9] + it[10] +
+                    it[15] + it[16] + it[13] + it[14] +
+                    it.subList(17, 21).joinToString("") +
+                    it.subList(21, 33).joinToString("")
+        }
+        return result.let { if (settings.useUpperCase) it.uppercase() else it.lowercase() }
+    }
+
 
     companion object {
         private val UUID_PATTERN = "[a-zA-Z0-9]{8}-[a-zA-Z0-9]{4}-[a-zA-Z0-9]{4}-[a-zA-Z0-9]{4}-[a-zA-Z0-9]{12}".toRegex()

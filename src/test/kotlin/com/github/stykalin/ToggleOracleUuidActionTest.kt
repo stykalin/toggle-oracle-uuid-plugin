@@ -15,6 +15,10 @@ class ToggleOracleUuidActionTest : BasePlatformTestCase() {
     }
 
     fun testRawToUUID() {
+        ToggleOracleUuidAppSettingsState.getInstance().apply {
+            useUpperCase = false
+            useRaw16Mode = false
+        }
         myFixture.configureByText("Example.txt", "\"AF7565DDB6C649A1840E6008432D7D92${CARET_TAG}\"")
         myFixture.performEditorAction(ACTION_ID)
 
@@ -23,7 +27,10 @@ class ToggleOracleUuidActionTest : BasePlatformTestCase() {
     }
 
     fun testRawToUpperCaseUUID() {
-        ToggleOracleUuidAppSettingsState.getInstance().useUpperCase = true
+        ToggleOracleUuidAppSettingsState.getInstance().apply {
+            useUpperCase = true
+            useRaw16Mode = false
+        }
         myFixture.configureByText("Example.txt", "\"AF7565DDB6C649A1840E6008432D7D92${CARET_TAG}\"")
         myFixture.performEditorAction(ACTION_ID)
 
@@ -32,6 +39,10 @@ class ToggleOracleUuidActionTest : BasePlatformTestCase() {
     }
 
     fun testUUIDToRaw() {
+        ToggleOracleUuidAppSettingsState.getInstance().apply {
+            useUpperCase = false
+            useRaw16Mode = false
+        }
         myFixture.configureByText("Example.kt", "val str = \"${CARET_TAG}66dbcc0a-09a3-44d5-9f46-900eda5cf632\"")
 
         myFixture.performEditorAction(ACTION_ID)
@@ -41,13 +52,40 @@ class ToggleOracleUuidActionTest : BasePlatformTestCase() {
     }
 
     fun testUpperCaseUUIDToRaw() {
-        ToggleOracleUuidAppSettingsState.getInstance().useUpperCase = true
+        ToggleOracleUuidAppSettingsState.getInstance().apply {
+            useUpperCase = true
+            useRaw16Mode = false
+        }
         myFixture.configureByText("Example.kt", "val str = \"${CARET_TAG}66DBCC0A-09A3-44D5-9F46-900EDA5CF632\"")
 
         myFixture.performEditorAction(ACTION_ID)
 
         val textAfterAction = myFixture.editor.document.text
         assertThat(textAfterAction, equalTo("val str = \"66DBCC0A09A344D59F46900EDA5CF632\""))
+    }
+
+    fun testRaw16ToUUID() {
+        ToggleOracleUuidAppSettingsState.getInstance().apply {
+            useUpperCase = true
+            useRaw16Mode = true
+        }
+        myFixture.configureByText("Example.txt", "\"AF7565DDB6C649A1840E6008432D7D92${CARET_TAG}\"")
+        myFixture.performEditorAction(ACTION_ID)
+
+        val textAfterAction = myFixture.editor.document.text
+        assertThat(textAfterAction, equalTo("\"DD6575AF-C6B6-A149-840E-6008432D7D92\""))
+    }
+
+    fun testUUIDToRaw16() {
+        ToggleOracleUuidAppSettingsState.getInstance().apply {
+            useUpperCase = true
+            useRaw16Mode = true
+        }
+        myFixture.configureByText("Example.txt", "\"DD6575AF-C6B6-A149-840E-6008432D7D92${CARET_TAG}\"")
+        myFixture.performEditorAction(ACTION_ID)
+
+        val textAfterAction = myFixture.editor.document.text
+        assertThat(textAfterAction, equalTo("\"AF7565DDB6C649A1840E6008432D7D92\""))
     }
 
 }

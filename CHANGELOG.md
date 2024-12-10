@@ -4,6 +4,12 @@
 
 ## [Unreleased]
 
+## [0.0.6] - 2024-12-08
+
+### Added
+
+- "RAW(16) mode" for converting with byte swapping.
+
 ## [0.0.5] - 2024-11-30
 
 ### Changed

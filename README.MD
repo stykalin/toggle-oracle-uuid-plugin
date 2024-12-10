@@ -2,7 +2,7 @@
 
 <img src="https://plugins.jetbrains.com/files/17915/143624/icon/pluginIcon.svg" alt="drawing" width="100"/>
 <p><img src="https://github.com/stykalin/stykalin.github.io/raw/master/images/toggle_oracle_demo.gif" alt="demo" width="552" height="194"></p>
-<img src="docs/settings_uppercase.png" alt="settings">
+<img src="docs/settings.png" alt="settings">
 
 <!-- Plugin description -->
 <p>Toggling UUID-format string to DB Oracle UUID-format (RAW) and vice versa under caret.</p>
